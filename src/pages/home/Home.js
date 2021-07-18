@@ -1,13 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "../../components/Card";
 import Base from "../../layout/Base";
 import { FaTimes } from "react-icons/fa";
-import { useQuery } from "@apollo/client";
-import { getUsers } from "./helpers/homeHelper";
+import { useMutation, useQuery } from "@apollo/client";
+import { createWorkspace } from "./helpers/homeHelper";
 
 const Home = () => {
-  const { loading, error, data } = useQuery(getUsers);
-  console.log(data);
+  const { _id, token } = JSON.parse(localStorage.getItem("jwt"));
+  const [workspaceName, setWorkspaceName] = useState("");
+  const [workspaceType, setWorkspaceType] = useState("");
+
+  const addWorkspace = async () => {
+    const res = await createWorkspaceFunc({
+      variables: {
+        createWorkSpaceUserId: _id,
+        createWorkSpaceWorkspaceName: "sd",
+        createWorkSpaceWorkspaceType: "sdfs",
+      },
+    });
+    console.log(res);
+  };
+
+  const [createWorkspaceFunc] = useMutation(createWorkspace);
 
   return (
     <Base>
@@ -22,7 +36,7 @@ const Home = () => {
             <hr />
             <div className='flex justify-between'>
               <h5>Workspaces</h5>
-              <FaTimes />
+              <FaTimes onClick={addWorkspace} />
             </div>
           </div>
           <div className='col-span-3'>

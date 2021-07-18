@@ -18,7 +18,9 @@ const SignIn = () => {
 
   const handleSignIn = async (e) => {
     // e.preventDefault();
-    const res = await signInFunc({
+    const {
+      data: { signIn },
+    } = await signInFunc({
       variables: {
         signInSignInInput: {
           email: email,
@@ -26,7 +28,7 @@ const SignIn = () => {
         },
       },
     });
-    localStorage.setItem("user", JSON.parse(res));
+    localStorage.setItem("jwt", JSON.stringify(signIn));
   };
   const [signInFunc] = useMutation(signInHelper);
 
