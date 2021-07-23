@@ -1,5 +1,13 @@
 import { gql } from "@apollo/client";
 
+export const getUser = gql`
+  query Query {
+    getUser {
+      username
+    }
+  }
+`;
+
 export const createWorkspace = gql`
   mutation CreateWorkSpaceMutation(
     $createWorkSpaceUserId: ID

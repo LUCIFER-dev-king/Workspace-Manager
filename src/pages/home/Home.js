@@ -1,14 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "../../components/Card";
 import Base from "../../layout/Base";
 import { FaTimes } from "react-icons/fa";
 import { useMutation, useQuery } from "@apollo/client";
-import { createWorkspace } from "./helpers/homeHelper";
+import { createWorkspace, getUser } from "./helpers/homeHelper";
 
 const Home = () => {
-  const { _id, token } = JSON.parse(localStorage.getItem("jwt"));
+  const [_id, set_id] = useState("");
+  const [token, setToken] = useState("");
   const [workspaceName, setWorkspaceName] = useState("");
   const [workspaceType, setWorkspaceType] = useState("");
+  const { data } = useQuery(getUser);
+  console.log(data);
+  useEffect(() => {
+    // if (localStorage.getItem("jwt")) {
+    //   const { _id, token } = JSON.parse(localStorage.getItem("jwt"));
+    //   set_id(_id);
+    //   setToken(token);
+    // }
+  }, []);
 
   const addWorkspace = async () => {
     const res = await createWorkspaceFunc({

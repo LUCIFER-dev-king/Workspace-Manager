@@ -7,12 +7,10 @@ import {
   encryptMasterPassword,
   signIn,
 } from "./helper/authHelper";
-const { v4: uuidv4 } = require("uuid");
 const { signInHelper } = require("./helper/authHelper");
 
 const SignIn = () => {
   const history = useHistory();
-  var salt = uuidv4();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
