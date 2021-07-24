@@ -4,6 +4,23 @@ export const getUser = gql`
   query Query {
     getUser {
       username
+      workspace {
+        _id
+        workspaceName
+        boards {
+          _id
+          boardName
+          listOfCards {
+            _id
+            listName
+            cardList {
+              _id
+              cardName
+              cardDesc
+            }
+          }
+        }
+      }
     }
   }
 `;

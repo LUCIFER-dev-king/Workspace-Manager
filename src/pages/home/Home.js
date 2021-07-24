@@ -1,24 +1,19 @@
 import React, { useState, useEffect } from "react";
 import Card from "../../components/Card";
 import Base from "../../layout/Base";
-import { FaTimes } from "react-icons/fa";
 import { useMutation, useQuery } from "@apollo/client";
 import { createWorkspace, getUser } from "./helpers/homeHelper";
+import Workspace from "../../components/Workspace";
 
 const Home = () => {
   const [_id, set_id] = useState("");
   const [token, setToken] = useState("");
   const [workspaceName, setWorkspaceName] = useState("");
   const [workspaceType, setWorkspaceType] = useState("");
+  const [user, setUser] = useState({});
   const { data } = useQuery(getUser);
   console.log(data);
-  useEffect(() => {
-    // if (localStorage.getItem("jwt")) {
-    //   const { _id, token } = JSON.parse(localStorage.getItem("jwt"));
-    //   set_id(_id);
-    //   setToken(token);
-    // }
-  }, []);
+  useEffect(() => {}, []);
 
   const addWorkspace = async () => {
     const res = await createWorkspaceFunc({
@@ -44,10 +39,11 @@ const Home = () => {
               <li>Home</li>
             </ul>
             <hr />
-            <div className='flex justify-between'>
-              <h5>Workspaces</h5>
-              <FaTimes onClick={addWorkspace} />
-            </div>
+            data.getUser && (
+            {data.getUser.workspace.map((workspace) => (
+              <Workspace key={workspace._id} />
+            ))}
+            )
           </div>
           <div className='col-span-3'>
             <div>
