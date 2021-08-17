@@ -4,10 +4,11 @@ import Base from "../../layout/Base";
 import { useMutation, useQuery } from "@apollo/client";
 import { createWorkspace, getUser } from "./helpers/homeHelper";
 import Workspace from "../../components/Workspace";
-import { FaPlus } from "react-icons/fa";
+import { FaCross, FaPlus } from "react-icons/fa";
 import Board from "../../components/Board";
 import { UserContext } from "../../context/UserContext/userContext";
 import { SET_USER } from "../../context/UserContext/actions.types";
+import Header from "../../layout/Header";
 
 const Home = () => {
   const [_id, set_id] = useState("");
@@ -48,8 +49,57 @@ const Home = () => {
   return loading ? (
     <div>loading...</div>
   ) : (
-    <Base>
-      <div className='container max-w-5xl mx-auto mt-10'>
+    <div>
+      <div className='bg-black bg-opacity-25 h-screen w-screen fixed z-10'>
+        <div className='mx-40 my-20 rounded bg-white flex justify-start items-center'>
+          <div className='w-1/2 h-96'>
+            <div className='flex flex-col h-full px-16'>
+              <div className='font-semibold text-3xl'>
+                Let's buil a Workspace
+              </div>
+              <div className='font-light text-gray-500 my-1 text-lg'>
+                Boost your productivity by making it easier for everyone to
+                access boards in one location.
+              </div>
+              <label htmlFor='workspaceName' className='my-1 font-medium'>
+                Workspace Name
+              </label>
+              <input
+                type='text'
+                placeholder='Workspace name'
+                className='rounded border-2 border-gray-200 p-2 focus:border-transparent focus:ring-2 focus:outline-none'
+              />
+            </div>
+          </div>
+          <div
+            className='w-1/2'
+            style={{
+              background: `url('https://a.trellocdn.com/prgb/dist/images/create-team/wavy-border.df0d81969c6394b61c0d.svg')`,
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+              backgroundSize: "cover",
+              height: "34rem",
+            }}
+          >
+            <div className='flex flex-col justify-center items-center mt-20'>
+              <div className='text-right  pr-2 py-2'>close</div>
+              <div
+                className='w-96'
+                style={{
+                  background: `url('https://a.trellocdn.com/prgb/dist/images/organization/empty-board.d1f066971350650d3346.svg')`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "center",
+                  backgroundSize: "cover",
+                  height: "20rem",
+                }}
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <Header />
+
+      <div className='container max-w-5xl mx-auto mt-10 z-0'>
         <div className='grid grid-cols-4 gap-1'>
           <div className='col-span-0 '>
             <ul>
@@ -72,6 +122,7 @@ const Home = () => {
               <Workspace key={workspace._id} workspace={workspace} />
             ))}
           </div>
+
           <div className='col-span-3 '>
             <div>
               <p className='font-semibold'>YOUR WORKPACES </p>
@@ -95,7 +146,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-    </Base>
+    </div>
   );
 };
 

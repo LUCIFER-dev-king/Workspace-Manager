@@ -3,7 +3,7 @@ import Header from "./Header";
 
 const Base = ({ children }) => {
   return (
-    <div>
+    <div className='z-0'>
       <Header />
       {children}
     </div>
