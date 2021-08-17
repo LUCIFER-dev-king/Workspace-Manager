@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FaTimes } from "react-icons/fa";
-const Workspace = () => {
+import { UserContext } from "../context/UserContext/userContext";
+
+const Workspace = ({ workspace }) => {
   return (
-    <div className='flex justify-between'>
-      <h5>Workspace</h5>
+    <div className='p-2 font-semibold flex justify-between hover:bg-gray-200 rounded cursor-pointer'>
+      <h5>{workspace.workspaceName}'s Workspace</h5>
     </div>
   );
 };
