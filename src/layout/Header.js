@@ -1,10 +1,10 @@
 import React from "react";
 
-const Header = () => {
+const Header = ({ bgHomeChange }) => {
   return (
     <div
-      className='bg-black max-w-7-xl mx-auto px-2'
-      style={{ backgroundColor: "#026AA7" }}
+      className='max-w-7-xl mx-auto px-2 bg-black bg-opacity-20'
+      style={bgHomeChange ? { backgroundColor: "#026AA7" } : {}}
     >
       <div className='relative flex items-center justify-between h-auto p-1 text-lg'>
         <div>Home</div>

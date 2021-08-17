@@ -147,7 +147,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <Header />
+      <Header bgHomeChange={true} />
 
       <div className='container max-w-5xl mx-auto mt-10 z-0'>
         <div className='grid grid-cols-4 gap-1'>
