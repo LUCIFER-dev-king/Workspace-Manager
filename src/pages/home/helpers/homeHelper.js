@@ -27,18 +27,26 @@ export const getUser = gql`
 
 export const createWorkspace = gql`
   mutation CreateWorkSpaceMutation(
-    $createWorkSpaceUserId: ID
-    $createWorkSpaceWorkspaceName: String
-    $createWorkSpaceWorkspaceType: String
+    $createWorkSpaceCreateWorkSpaceInput: CreateWorkSpaceInput
   ) {
     createWorkSpace(
-      userId: $createWorkSpaceUserId
-      workspaceName: $createWorkSpaceWorkspaceName
-      workspaceType: $createWorkSpaceWorkspaceType
+      createWorkSpaceInput: $createWorkSpaceCreateWorkSpaceInput
     ) {
       workspace {
         workspaceName
-        workspaceType
+      }
+    }
+  }
+`;
+
+export const createBoard = gql`
+  mutation CreateBoardMutation($createBoardCreateBoardInput: CreateBoardInput) {
+    createBoard(createBoardInput: $createBoardCreateBoardInput) {
+      workspace {
+        workspaceName
+        boards {
+          boardName
+        }
       }
     }
   }

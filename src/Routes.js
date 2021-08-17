@@ -5,6 +5,7 @@ import SignIn from "./auth/SignIn";
 import SignUp from "./auth/SignUp";
 import Home from "./pages/home/Home";
 import { UserContext } from "./context/UserContext/userContext";
+import Board from "./pages/board/Board";
 
 const Routes = () => {
   const initialState = {
@@ -19,6 +20,7 @@ const Routes = () => {
           <Route path='/' exact component={Home} />
           <Route path='/signin' exact component={SignIn} />
           <Route path='/signup' exact component={SignUp} />
+          <Route path='/board' exact component={Board} />
         </Switch>
       </Router>
     </UserContext.Provider>
