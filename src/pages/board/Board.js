@@ -1,11 +1,11 @@
 import React from "react";
-import Base from "../../layout/Base";
 import Header from "../../layout/Header";
+import "../../index.css";
 
 const Board = () => {
   return (
     <div
-      className='h-screen overflow-y-hidden'
+      className='h-screen'
       style={{
         background: `url('https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2386x1600/47f09f0e3910259568294477d0bdedac/photo-1576502200916-3808e07386a5.jpg')`,
         backgroundRepeat: "no-repeat",
@@ -20,14 +20,17 @@ const Board = () => {
             KanbanTemplate
           </div>
         </div>
-        <div className='w-full mt-2 '>
-          <div className='flex  whitespace-nowrap overflow-x-auto'>
-            <div className='w-72 flex-shrink-0 bg-gray-100 m-1'>Board</div>
-            <div className='w-72 flex-shrink-0 bg-gray-100 m-1'>Board</div>
-            <div className='w-72 flex-shrink-0 bg-gray-100 m-1'>Board</div>
-            <div className='w-72 flex-shrink-0 bg-gray-100 m-1'>Board</div>
-            <div className='w-72 flex-shrink-0 bg-gray-100 m-1'>Board</div>
-            <div className='w-72 flex-shrink-0 bg-gray-100 m-1'>Board</div>
+        <div id='scrollBoard' className='w-full mt-2 '>
+          <div
+            className='flex whitespace-nowrap overflow-x-auto'
+            style={{ height: "36rem" }}
+          >
+            <div className='w-72 h-20 flex-shrink-0 bg-gray-100 m-1'>Board</div>
+            <div className='w-72 h-20 flex-shrink-0 bg-gray-100 m-1'>Board</div>
+            <div className='w-72 h-20 flex-shrink-0 bg-gray-100 m-1'>Board</div>
+            <div className='w-72 h-20 flex-shrink-0 bg-gray-100 m-1'>Board</div>
+            <div className='w-72 h-20 flex-shrink-0 bg-gray-100 m-1'>Board</div>
+            <div className='w-72 h-20 flex-shrink-0 bg-gray-100 m-1'>Board</div>
           </div>
         </div>
       </div>
