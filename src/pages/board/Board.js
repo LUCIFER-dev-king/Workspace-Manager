@@ -27,7 +27,6 @@ const Board = () => {
           >
             <div className='w-72 h-20 flex-shrink-0 bg-gray-100 m-1'>Board</div>
             <div className='w-72 h-20 flex-shrink-0 bg-gray-100 m-1'>Board</div>
-            <div className='w-72 h-20 flex-shrink-0 bg-gray-100 m-1'>Board</div>
           </div>
         </div>
       </div>
