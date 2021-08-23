@@ -16,7 +16,7 @@ const Home = () => {
   const [token, setToken] = useState("");
   const [workspaceName, setWorkspaceName] = useState("");
   const [workspaceType, setWorkspaceType] = useState("");
-  const [workspaceId, setWorkspaceId] = useState("");
+  const [workspace, setWorkspace] = useState({});
   const [boardName, setBoardName] = useState("");
   const [loading, setLoading] = useState(true);
   const history = useHistory();
@@ -66,7 +66,7 @@ const Home = () => {
     const res = await createBoardFun({
       variables: {
         createBoardCreateBoardInput: {
-          workspaceId: workspaceId,
+          workspaceId: workspace._id,
           boardName: boardName,
         },
       },
@@ -77,7 +77,7 @@ const Home = () => {
         pathname: "/board",
         state: {
           board: res.data,
-          workspaceId: workspaceId,
+          workspace: workspace,
         },
       });
     }
@@ -173,7 +173,7 @@ const Home = () => {
       >
         <div className='mx-auto mt-10 w-72 h-36 transparent rounded bg-white p-2 '>
           <div className='flex justify-between items-center'>
-            <label htmlFor='workspaceName' className='my-2 font-medium'>
+            <label htmlFor='boardName' className='my-2 font-medium'>
               Board Name
             </label>
             <FaTimes
@@ -182,7 +182,7 @@ const Home = () => {
             />
           </div>
           <input
-            id='workspaceName'
+            id='boardName'
             type='text'
             placeholder='Workspace name'
             onChange={(e) => setBoardName(e.target.value)}
@@ -241,15 +241,15 @@ const Home = () => {
                       <Board
                         key={board._id}
                         board={board}
-                        workspaceId={workspace._id}
+                        workspace={workspace}
                       />
                     ))}
                     <div
                       onClick={() => {
                         boardModelController("visible");
-                        setWorkspaceId(workspace._id);
+                        setWorkspace(workspace);
                       }}
-                      className='mt-1 w-44 h-20 bg-gray-300 hover:bg-gray-400 cursor-pointer rounded flex flex-col justify-center items-center'
+                      className='mt-3 w-44 h-20 bg-gray-300 hover:bg-gray-400 cursor-pointer rounded flex flex-col justify-center items-center'
                     >
                       <div className='text-white text-lg p-2'>
                         Create new board
