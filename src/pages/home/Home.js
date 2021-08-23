@@ -9,16 +9,19 @@ import Board from "../../components/Board";
 import { UserContext } from "../../context/UserContext/userContext";
 import { SET_USER } from "../../context/UserContext/actions.types";
 import Header from "../../layout/Header";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaTimes } from "react-icons/fa";
 
 const Home = () => {
   const [_id, set_id] = useState("");
   const [token, setToken] = useState("");
   const [workspaceName, setWorkspaceName] = useState("");
   const [workspaceType, setWorkspaceType] = useState("");
+  const [workspaceId, setWorkspaceId] = useState("");
+  const [boardName, setBoardName] = useState("");
   const [loading, setLoading] = useState(true);
   const history = useHistory();
-  const model = useRef("");
+  const workspaceModel = useRef("");
+  const boardModel = useRef("");
   const { dispatch } = useContext(UserContext);
   const [user, setUser] = useState({});
   const { data } = useQuery(getUser);
@@ -35,8 +38,12 @@ const Home = () => {
     }
   }, [data]);
 
-  const modelController = (value) => {
-    model.current.style.visibility = value;
+  const workspaceModelController = (value) => {
+    workspaceModel.current.style.visibility = value;
+  };
+
+  const boardModelController = (value) => {
+    boardModel.current.style.visibility = value;
   };
 
   const addWorkspace = async () => {
@@ -55,13 +62,25 @@ const Home = () => {
 
   const [createBoardFun] = useMutation(createBoard);
 
-  const addBoard = () => {
-    createBoardFun({
-      createBoardCreateBoardInput: {
-        workspaceId: "60f468153139f01580fecf05",
-        boardName: "tessss",
+  const addBoard = async () => {
+    const res = await createBoardFun({
+      variables: {
+        createBoardCreateBoardInput: {
+          workspaceId: workspaceId,
+          boardName: boardName,
+        },
       },
     });
+
+    if (res.data) {
+      history.push({
+        pathname: "/board",
+        state: {
+          board: res.data,
+          workspaceId: workspaceId,
+        },
+      });
+    }
   };
 
   const toBoard = () => {
@@ -73,7 +92,7 @@ const Home = () => {
   ) : (
     <div>
       <div
-        ref={model}
+        ref={workspaceModel}
         className='bg-black bg-opacity-25 h-screen w-screen fixed z-10 invisible'
       >
         <div className='mx-40 my-20 rounded bg-white flex justify-start items-center'>
@@ -127,7 +146,7 @@ const Home = () => {
             <div className='flex flex-col justify-center items-center mt-20'>
               <div
                 onClick={() => {
-                  modelController("hidden");
+                  workspaceModelController("hidden");
                 }}
                 className='text-right  pr-2 py-2'
               >
@@ -145,6 +164,38 @@ const Home = () => {
               ></div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div
+        ref={boardModel}
+        className='bg-black bg-opacity-25 h-screen w-screen fixed z-10 invisible'
+      >
+        <div className='mx-auto mt-10 w-72 h-36 transparent rounded bg-white p-2 '>
+          <div className='flex justify-between items-center'>
+            <label htmlFor='workspaceName' className='my-2 font-medium'>
+              Board Name
+            </label>
+            <FaTimes
+              onClick={() => boardModelController("hidden")}
+              className='cursor-pointer'
+            />
+          </div>
+          <input
+            id='workspaceName'
+            type='text'
+            placeholder='Workspace name'
+            onChange={(e) => setBoardName(e.target.value)}
+            className='mt-1 rounded w-full border-2 border-gray-200 p-1 focus:border-transparent focus:ring-2 focus:outline-none'
+          />
+          <button
+            onClick={() => {
+              addBoard();
+            }}
+            className='w-full mt-2 p-2 bg-blue-300 text-white hover:bg-blue-500 rounded'
+          >
+            Submit
+          </button>
         </div>
       </div>
       <Header bgHomeChange={true} />
@@ -168,7 +219,7 @@ const Home = () => {
               <h3 className='font-semibold text-gray-500'>Workspace</h3>
               <FaPlus
                 onClick={() => {
-                  modelController("visible");
+                  workspaceModelController("visible");
                 }}
                 className='p-1 text-xl text-gray-600 hover:bg-gray-200 rounded cursor-pointer'
               />
@@ -185,12 +236,19 @@ const Home = () => {
               {user.workspace.map((workspace) => (
                 <div className='mt-5' key={workspace._id}>
                   <div className='font-medium'>{workspace.workspaceName}</div>
-                  <div className='flex'>
+                  <div className='flex flex-wrap'>
                     {workspace.boards.map((board, i) => (
-                      <Board key={board._id} board={board} />
+                      <Board
+                        key={board._id}
+                        board={board}
+                        workspaceId={workspace._id}
+                      />
                     ))}
                     <div
-                      onClick={toBoard}
+                      onClick={() => {
+                        boardModelController("visible");
+                        setWorkspaceId(workspace._id);
+                      }}
                       className='mt-1 w-44 h-20 bg-gray-300 hover:bg-gray-400 cursor-pointer rounded flex flex-col justify-center items-center'
                     >
                       <div className='text-white text-lg p-2'>

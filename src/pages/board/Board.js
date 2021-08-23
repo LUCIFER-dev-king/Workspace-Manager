@@ -1,8 +1,13 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import Header from "../../layout/Header";
 import "../../index.css";
+import { FaPlus } from "react-icons/fa";
 
 const Board = () => {
+  const location = useLocation();
+  console.log(location.state.board);
+
   return (
     <div
       className='h-screen'
@@ -25,6 +30,23 @@ const Board = () => {
             className='flex whitespace-nowrap overflow-x-auto'
             style={{ height: "36rem" }}
           >
+            <div
+              style={{ minHeight: "40px" }}
+              className='w-72 flex-shrink-0 bg-gray-100 m-1 rounded p-2 bg-gray-200'
+            >
+              <div className='font-medium'>Name</div>
+
+              <div className='w-full rounded'>
+                <div>Card Name</div>
+              </div>
+
+              <div className='flex mt-2 justify-start text-gray-500 hover:bg-gray-300 rounded cursor-pointer items-center'>
+                <FaPlus className='m-1 ml-2 text-xs '></FaPlus>
+                <div className='m-1'>Add a card</div>
+              </div>
+            </div>
+            <div className='w-72 h-20 flex-shrink-0 bg-gray-100 m-1'>Board</div>
+            <div className='w-72 h-20 flex-shrink-0 bg-gray-100 m-1'>Board</div>
             <div className='w-72 h-20 flex-shrink-0 bg-gray-100 m-1'>Board</div>
             <div className='w-72 h-20 flex-shrink-0 bg-gray-100 m-1'>Board</div>
             <div className='w-72 h-20 flex-shrink-0 bg-gray-100 m-1'>Board</div>

@@ -42,12 +42,8 @@ export const createWorkspace = gql`
 export const createBoard = gql`
   mutation CreateBoardMutation($createBoardCreateBoardInput: CreateBoardInput) {
     createBoard(createBoardInput: $createBoardCreateBoardInput) {
-      workspace {
-        workspaceName
-        boards {
-          boardName
-        }
-      }
+      boardName
+      _id
     }
   }
 `;
