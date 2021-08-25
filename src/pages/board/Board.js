@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { NetworkStatus, useMutation, useQuery } from "@apollo/client";
 import Header from "../../layout/Header";
@@ -10,6 +10,8 @@ const Board = () => {
   const location = useLocation();
   const [listName, setListName] = useState("");
   const [board, setBoard] = useState({});
+  const addListIdleRef = useRef("");
+  const addListInputRef = useRef("");
 
   const { data, loading, refetch, networkStatus } = useQuery(getBoard, {
     variables: {
@@ -50,6 +52,16 @@ const Board = () => {
   if (loading) {
     return <div>loading</div>;
   }
+
+  const addListController = (value) => {
+    if (value) {
+      addListIdleRef.current.style.display = "none";
+      addListInputRef.current.style.display = "flex";
+    } else {
+      addListIdleRef.current.style.display = "flex";
+      addListInputRef.current.style.display = "none";
+    }
+  };
 
   if (networkStatus === NetworkStatus.refetch) return "Refetching";
 
@@ -97,12 +109,23 @@ const Board = () => {
                   </div>
                 </div>
               ))}
-            <div
-              onClick={addListOfCard}
-              className='flex h-10 m-1 py-3 pr-3 pl-1 justify-start text-gray-400 bg-black bg-opacity-20 hover:bg-gray-300 rounded cursor-pointer items-center'
-            >
-              <FaPlus className='m-1 ml-2 text-xs '></FaPlus>
-              <div className='m-1'>Add another list</div>
+            <div className='transistion duration-1000 ease-in-out '>
+              <div
+                onClick={() => addListController(true)}
+                ref={addListIdleRef}
+                className=' flex  h-10 m-1 py-3 pr-3 pl-1 justify-start text-gray-400 bg-black bg-opacity-20 hover:bg-gray-300 rounded cursor-pointer items-center'
+              >
+                <FaPlus className='m-1 ml-2 text-xs '></FaPlus>
+                <div className='m-1'>Add another list</div>
+              </div>
+              <div
+                onClick={() => addListController(false)}
+                ref={addListInputRef}
+                className='flex hidden  h-10 m-1 py-3 pr-3 pl-1 justify-start text-gray-400 bg-black bg-opacity-20 hover:bg-gray-300 rounded cursor-pointer items-center'
+              >
+                <FaPlus className='m-1 ml-2 text-xs '></FaPlus>
+                <div className='m-1'>Add card</div>
+              </div>
             </div>
           </div>
         </div>
