@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { useHistory } from "react-router-dom";
-import Card from "../../components/Card";
-import Base from "../../layout/Base";
+
 import { useMutation, useQuery } from "@apollo/client";
 import { createBoard, createWorkspace, getUser } from "./helpers/homeHelper";
 import Workspace from "../../components/Workspace";
