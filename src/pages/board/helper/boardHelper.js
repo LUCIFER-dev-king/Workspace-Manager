@@ -12,6 +12,13 @@ export const getBoard = gql`
           _id
           cardName
           cardDesc
+          startDate
+          endDate
+          checkList {
+            _id
+            checkListName
+            isChecked
+          }
         }
       }
     }
@@ -19,15 +26,50 @@ export const getBoard = gql`
 `;
 
 export const createListOfCards = gql`
-  mutation Mutation($createCardListCreateCardListInput: CreateCardListInput) {
-    createCardList(createCardListInput: $createCardListCreateCardListInput) {
-      workspace {
+  mutation Mutation($createCardListInput: CreateCardListInput) {
+    createCardList(createCardListInput: $createCardListInput) {
+      _id
+      boardName
+      imageUrl
+      listOfCards {
         _id
-        boards {
+        listName
+        cardList {
           _id
-          listOfCards {
+          cardName
+          cardDesc
+          startDate
+          endDate
+          checkList {
             _id
-            listName
+            checkListName
+            isChecked
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const createCardToListOfCards = gql`
+  mutation Mutation($createCardInput: CreateCardInput) {
+    createCard(createCardInput: $createCardInput) {
+      _id
+      boardName
+      imageUrl
+      listOfCards {
+        _id
+        listName
+        cardList {
+          _id
+          cardName
+          cardDesc
+          startDate
+          endDate
+          checkList {
+            _id
+            checkListName
+            isChecked
           }
         }
       }

@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 * {
   margin: 0;
@@ -8,6 +9,51 @@
   box-sizing: border-box;
 }
 
-#scrollBoard::-webkit-scrollbar {
-  width: 0;
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #0000;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
+  padding: 0;
+}
+
+#cardScrollBar::-webkit-scrollbar {
+  width: 10px;
+  opacity: 0.1;
+}
+
+#cardScrollBar::-webkit-scrollbar-track {
+  background-color: transparent;
+  opacity: 0.1;
+}
+
+#cardScrollBar::-webkit-scrollbar-thumb {
+  background-color: grey;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 5px;
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+}
+
+#volumeScroll::-webkit-slider-thumb,
+#seekScroll::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  background: #fff;
+  cursor: pointer;
 }

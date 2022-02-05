@@ -1,5 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import { backgroundImageUrls } from "../utils";
 
 const Board = ({ board, workspace }) => {
   const history = useHistory();
@@ -12,14 +13,21 @@ const Board = ({ board, workspace }) => {
       },
     });
   };
-
   return (
     <div
+      style={{
+        background: `url(${board.imageUrl})`,
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+      }}
+      className="mt-3 mr-3 w-44 h-20 cursor-pointer rounded"
       onClick={redirectToBoard}
-      className='mt-3 mr-3 w-44 h-20 bg-green-50 hover:bg-gray-300 cursor-pointer rounded'
     >
-      <div className='text-white text-lg p-2 font-semibold'>
-        {board.boardName}
+      <div className="h-full w-full bg-black bg-opacity-25 cursor-pointer rounded">
+        <div className="text-white text-lg p-2 font-semibold">
+          {board.boardName}
+        </div>
       </div>
     </div>
   );

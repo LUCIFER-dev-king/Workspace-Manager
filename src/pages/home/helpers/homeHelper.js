@@ -10,6 +10,36 @@ export const getUser = gql`
         boards {
           _id
           boardName
+          imageUrl
+          listOfCards {
+            _id
+            listName
+            cardList {
+              _id
+              cardName
+              cardDesc
+              startDate
+              endDate
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const createWorkspace = gql`
+  mutation CreateWorkSpaceMutation(
+    $createWorkSpaceInput: CreateWorkSpaceInput
+  ) {
+    createWorkSpace(createWorkSpaceInput: $createWorkSpaceInput) {
+      workspace {
+        _id
+        workspaceName
+        boards {
+          _id
+          boardName
+          imageUrl
           listOfCards {
             _id
             listName
@@ -25,25 +55,27 @@ export const getUser = gql`
   }
 `;
 
-export const createWorkspace = gql`
-  mutation CreateWorkSpaceMutation(
-    $createWorkSpaceCreateWorkSpaceInput: CreateWorkSpaceInput
-  ) {
-    createWorkSpace(
-      createWorkSpaceInput: $createWorkSpaceCreateWorkSpaceInput
-    ) {
-      workspace {
-        workspaceName
-      }
-    }
-  }
-`;
-
 export const createBoard = gql`
   mutation CreateBoardMutation($createBoardCreateBoardInput: CreateBoardInput) {
     createBoard(createBoardInput: $createBoardCreateBoardInput) {
-      boardName
-      _id
+      workspace {
+        _id
+        workspaceName
+        boards {
+          _id
+          boardName
+          imageUrl
+          listOfCards {
+            _id
+            listName
+            cardList {
+              _id
+              cardName
+              cardDesc
+            }
+          }
+        }
+      }
     }
   }
 `;
