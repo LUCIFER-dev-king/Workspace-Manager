@@ -34,7 +34,7 @@ WORKSPACE MANAGER is a task management web app that can be used to create new ta
 
 ## Application Links
 
-Deployed URL -> [https://elearnreactsite.netlify.app](https://elearnreactsite.netlify.app)
+Deployed URL -> [https://workspacemanager.netlify.app](https://workspacemanager.netlify.app)
 <br>
 
 ## Devloped and Maintained By
