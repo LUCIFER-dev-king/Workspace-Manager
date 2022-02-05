@@ -82,7 +82,7 @@ const CardModal = ({
           ref={dateModel}
           className="absolute top-0 right-0 w-60 h-full bg-gray-200 invisible"
         >
-          <div class="flex flex-col w-full p-2">
+          <div className="flex flex-col w-full p-2">
             <div className="flex my-1 items-center justify-center">
               <h4 className="ml-auto ">Dates</h4>
               <MdClose

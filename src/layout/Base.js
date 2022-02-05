@@ -33,10 +33,12 @@ const Base = ({ children }) => {
         type: SET_USER,
         payload: data.getUser,
       });
-      dispatch({
-        type: SET_USER_WORKSPACE,
-        payload: data.getUser.workspace,
-      });
+      if (data.getUser) {
+        dispatch({
+          type: SET_USER_WORKSPACE,
+          payload: data.getUser.workspace,
+        });
+      }
     }
   }, [loading]);
 

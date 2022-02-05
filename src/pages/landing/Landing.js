@@ -9,12 +9,18 @@ const Landing = () => {
   const {
     state: { workspaces },
   } = useContext(UserContext);
+  const history = useHistory();
+  const user = JSON.parse(localStorage.getItem("jwt"));
   const [workspace, setWorkspace] = useState({});
   const boardModel = useRef("");
 
   const boardModelController = (value) => {
     boardModel.current.style.visibility = value;
   };
+
+  if (user === null) {
+    history.push("/signin");
+  }
 
   return (
     <Base>

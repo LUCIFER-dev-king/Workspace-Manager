@@ -15,12 +15,12 @@ const Card = ({ card }) => {
         }}
         className="rounded-t-sm p-4"
       >
-        <div class="bg-white text-black w-full p-2 flex flex-col h-full  rounded">
+        <div className="bg-white text-black w-full p-2 flex flex-col h-full  rounded">
           <div>{card.cardName}</div>
           <div>{card.endDate}</div>
         </div>
       </div>
-      <div class="mt-3 m-2 flex justify-center items-center cursor-pointer bg-white rounded border-2 border-gray-300 focus:border-transparent focus:ring-2 focus:outline-none p-2">
+      <div className="mt-3 m-2 flex justify-center items-center cursor-pointer bg-white rounded border-2 border-gray-300 focus:border-transparent focus:ring-2 focus:outline-none p-2">
         <MdDone />
         <p className="ml-5">Completed</p>
       </div>
