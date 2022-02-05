@@ -4,7 +4,7 @@ WORKSPACE MANAGER is a task management web app built with React and NodeJS.
 
 ## Project Overview
 
-WORKSPACE MANAGER is a task management web app which can be used to create new task or work to accomplish in near feature. It is a trello clone, it has some features of trello like we can create borads for every workspace. Each board can have multiple task card and they are drag to set priority. Also for each task user can set due data based on the due date Home screen shows the next task to do.
+WORKSPACE MANAGER is a task management web app that can be used to create new tasks or work to accomplish in near future. It is a Trello clone, it has some features of Trello like we can create boards for every workspace. Each board can have multiple task cards and they are dragged to set priority. Also for each task user can set due data based on the due date Home screen shows the next task to do.
 
 - The courses encryption and payment are handled by cloud-functions.
 - Encryption is done by Publitio Api, the video uploaded to cloud storage and from that cloud functions get triggered and upload it to publitio, where the video is compressed, encrypted and returns a url.
