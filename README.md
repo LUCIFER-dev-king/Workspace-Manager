@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# WORKSPACE MANAGER
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+WORKSPACE MANAGER is a task management web app built with React and NodeJS.
 
-## Available Scripts
+## Project Overview
 
-In the project directory, you can run:
+WORKSPACE MANAGER is a task management web app which can be used to create new task or work to accomplish in near feature. It is a trello clone, it has some features of trello like we can create borads for every workspace. Each board can have multiple task card and they are drag to set priority. Also for each task user can set due data based on the due date Home screen shows the next task to do.
 
-### `npm start`
+- The courses encryption and payment are handled by cloud-functions.
+- Encryption is done by Publitio Api, the video uploaded to cloud storage and from that cloud functions get triggered and upload it to publitio, where the video is compressed, encrypted and returns a url.
+- Backend API url [https://github.com/LUCIFER-dev-king/workspace-manager-backend](https://github.com/LUCIFER-dev-king/workspace-manager-backend).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Functionlity
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Create workspace and boards
+- Create task and configure each task.
+- Easy and every task is drag and droppable to set priority
+- Task will be updated based on the due date.
 
-### `npm test`
+## Tech Stack
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<b>Frontned</b>: Reactjs
+<br>
+<b>Styling</b>: Tailwind CSS
+<br>
+<b>Database</b>: MongoDB
+<br>
+<b>Authentication and Authorisation</b>: JWT Tokens
+<br>
+<b>State Management</b>: Context
+<br>
+<b>API</b>: GraphQL API
+<br>
 
-### `npm run build`
+## Application Links
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Deployed URL -> [https://elearnreactsite.netlify.app](https://elearnreactsite.netlify.app)
+<br>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Devloped and Maintained By
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+📸 [Instagram](https://www.instagram.com/lucifer_the_king/?hl=en) <br />
+🧳 [LinkedIn](https://www.linkedin.com/in/nihal-ahamed-m-s-7b6808190/)
+<br>
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**MADE WITH 💖, HAPPY CODING!**
