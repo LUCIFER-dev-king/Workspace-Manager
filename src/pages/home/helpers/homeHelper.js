@@ -20,6 +20,7 @@ export const getUser = gql`
               cardDesc
               startDate
               endDate
+              isCompleted
             }
           }
         }
@@ -47,6 +48,9 @@ export const createWorkspace = gql`
               _id
               cardName
               cardDesc
+              startDate
+              endDate
+              isCompleted
             }
           }
         }
@@ -72,6 +76,9 @@ export const createBoard = gql`
               _id
               cardName
               cardDesc
+              startDate
+              endDate
+              isCompleted
             }
           }
         }

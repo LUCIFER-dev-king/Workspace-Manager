@@ -19,12 +19,14 @@ const CardModal = ({
   currentSelectedCard,
 }) => {
   const dateModel = useRef();
-  const { cardName, cardDesc, startDate, endDate } = currentSelectedCard;
+  const { _id, cardName, cardDesc, startDate, endDate, isCompleted } =
+    currentSelectedCard;
 
   const [cardTitle, setCardTitle] = useState("");
   const [cardDescrip, setCardDesc] = useState("");
   const [cardDueDate, setCardDueDate] = useState("");
   const [cardStartDate, setCardStartDate] = useState("");
+  const [cardCompleted, setCardCompleted] = useState(false);
 
   const { dispatch } = useContext(UserContext);
 
@@ -40,7 +42,9 @@ const CardModal = ({
           cardName: cardTitle,
           cardDesc: cardDescrip,
           startDate: cardStartDate,
+          isCompleted: cardCompleted,
           endDate: cardDueDate,
+          cardId: _id,
         },
       },
     });
@@ -62,6 +66,7 @@ const CardModal = ({
       setCardDesc(cardDesc);
       setCardStartDate(startDate);
       setCardDueDate(endDate);
+      setCardCompleted(isCompleted);
     }
   }, [currentSelectedCard]);
 
@@ -137,7 +142,12 @@ const CardModal = ({
                     <div className="px-2 mt-1">
                       <h4>Due Date</h4>
                       <div className=" flex items-center">
-                        <input type="checkbox" className="mr-2" />
+                        <input
+                          type="checkbox"
+                          value={cardCompleted}
+                          onChange={(e) => setCardCompleted(e.target.checked)}
+                          className="mr-2"
+                        />
                         {cardDueDate}
                       </div>
                     </div>

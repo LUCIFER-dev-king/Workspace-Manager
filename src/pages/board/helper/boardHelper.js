@@ -4,21 +4,15 @@ export const getBoard = gql`
   query Query($getBoardGetBoardInput: GetBoardInput) {
     getBoard(getBoardInput: $getBoardGetBoardInput) {
       _id
-      boardName
       listOfCards {
         _id
-        listName
         cardList {
           _id
           cardName
           cardDesc
           startDate
           endDate
-          checkList {
-            _id
-            checkListName
-            isChecked
-          }
+          isCompleted
         }
       }
     }
@@ -40,6 +34,7 @@ export const createListOfCards = gql`
           cardDesc
           startDate
           endDate
+          isCompleted
           checkList {
             _id
             checkListName
@@ -55,22 +50,15 @@ export const createCardToListOfCards = gql`
   mutation Mutation($createCardInput: CreateCardInput) {
     createCard(createCardInput: $createCardInput) {
       _id
-      boardName
-      imageUrl
       listOfCards {
         _id
-        listName
         cardList {
           _id
           cardName
           cardDesc
           startDate
           endDate
-          checkList {
-            _id
-            checkListName
-            isChecked
-          }
+          isCompleted
         }
       }
     }
