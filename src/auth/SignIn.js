@@ -2,11 +2,6 @@ import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./authentication.css";
-import {
-  authenticate,
-  encryptMasterPassword,
-  signIn,
-} from "./helper/authHelper";
 const { signInHelper } = require("./helper/authHelper");
 
 const SignIn = () => {

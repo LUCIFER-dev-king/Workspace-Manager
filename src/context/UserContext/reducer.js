@@ -1,6 +1,6 @@
 import { SET_USER, SET_USER_BOARD, SET_USER_WORKSPACE } from "./actions.types";
 
-export default (state, action) => {
+export const UserReducer = (state, action) => {
   switch (action.type) {
     case SET_USER:
       return action.payload === null

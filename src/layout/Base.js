@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useEffect, useContext, useRef } from "react";
 import Header from "./Header";
 import { Link, useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/client";
@@ -9,7 +9,6 @@ import { FaPlus } from "react-icons/fa";
 import { UserContext } from "../context/UserContext/userContext";
 import {
   SET_USER,
-  SET_USER_BOARD,
   SET_USER_WORKSPACE,
 } from "../context/UserContext/actions.types";
 import { WorkspaceModal } from "../modals/WorkspaceModal";
@@ -59,7 +58,7 @@ const Base = ({ children }) => {
               </Link>
 
               <Link className="w-1/2" to="/home">
-                <li className=" w-1/2 text-center md:text-left md:w-full m-2 md:m-0 bg-gray-100 md:bg-transparent p-2 font-bold hover:bg-gray-100 rounded cursor-pointer">
+                <li className=" text-center md:text-left md:w-full m-2 md:m-0 bg-gray-100 md:bg-transparent p-2 font-bold hover:bg-gray-100 rounded cursor-pointer">
                   Home
                 </li>
               </Link>
@@ -68,9 +67,9 @@ const Base = ({ children }) => {
                   localStorage.removeItem("jwt");
                   history.push("/signin");
                 }}
-                className="w-1/2"
+                className="w-1/2 md:w-full"
               >
-                <li className=" w-1/2 text-center md:text-left md:w-full m-2 md:m-0 bg-gray-100 md:bg-transparent p-2 font-bold hover:bg-gray-100 rounded cursor-pointer">
+                <li className="  text-center md:text-left md:w-full m-2 md:m-0 bg-gray-100 md:bg-transparent p-2 font-bold hover:bg-gray-100 rounded cursor-pointer">
                   Log Out
                 </li>
               </div>

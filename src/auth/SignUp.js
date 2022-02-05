@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import { signUpHelper } from "./helper/authHelper";
 import { useHistory } from "react-router-dom";
 import { useMutation } from "@apollo/client";

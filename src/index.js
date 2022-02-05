@@ -10,7 +10,6 @@ import {
   ApolloLink,
   concat,
 } from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
 
 const jwt = JSON.parse(localStorage.getItem("jwt"));
 var token;
@@ -21,14 +20,14 @@ const httpLink = createHttpLink({
   uri: process.env.REACT_APP_BACKEND,
 });
 
-const authorizationLink = setContext((_, { headers }) => {
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : "",
-    },
-  };
-});
+// const authorizationLink = setContext((_, { headers }) => {
+//   return {
+//     headers: {
+//       ...headers,
+//       authorization: token ? `Bearer ${token}` : "",
+//     },
+//   };
+// });
 const authMiddleware = new ApolloLink((operation, forward) => {
   operation.setContext(({ headers = {} }) => ({
     headers: {

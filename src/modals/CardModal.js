@@ -1,19 +1,12 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import { useLocation } from "react-router-dom";
 import {
-  FaRegCommentAlt,
   FaPager,
   FaAlignRight,
   FaRegCheckSquare,
-  FaRegUser,
   FaRegClock,
 } from "react-icons/fa";
 import { MdClose, MdAttachFile } from "react-icons/md";
-import {
-  getBoard,
-  createListOfCards,
-  createCardToListOfCards,
-} from "../pages/board/helper/boardHelper";
+import { createCardToListOfCards } from "../pages/board/helper/boardHelper";
 import { useMutation } from "@apollo/client";
 import { SET_USER_BOARD } from "../context/UserContext/actions.types";
 import { UserContext } from "../context/UserContext/userContext";
@@ -26,7 +19,7 @@ const CardModal = ({
   currentSelectedCard,
 }) => {
   const dateModel = useRef();
-  const { _id, cardName, cardDesc, startDate, endDate } = currentSelectedCard;
+  const { cardName, cardDesc, startDate, endDate } = currentSelectedCard;
 
   const [cardTitle, setCardTitle] = useState("");
   const [cardDescrip, setCardDesc] = useState("");
@@ -122,8 +115,8 @@ const CardModal = ({
               className="cursor-pointer"
             />
           </div>
-          <div className="flex justify-between w-full p-2 ">
-            <div className="p-1 w-9/12 flex flex-col">
+          <div className="md:flex justify-between w-full p-2 ">
+            <div className="p-1 md:w-9/12 flex flex-col">
               <div className="flex items-start w-full">
                 <div className="mt-1">
                   <FaPager />
@@ -157,7 +150,7 @@ const CardModal = ({
                 </div>
                 <div className="flex flex-col ">
                   <h4 className="my-2 ml-1 font-bold px-1">Description</h4>
-                  <div className="mt-2 px-2 mr-10">
+                  <div className="mt-2 px-2 md:mr-10">
                     <textarea
                       className="rounded border-2 border-gray-200 focus:border-transparent focus:ring-2 focus:outline-none w-full"
                       name="desc"
@@ -189,7 +182,7 @@ const CardModal = ({
                 </div>
               </div>
             </div>
-            <div className="w-3/12 p-1 flex flex-col">
+            <div className="md:w-3/12 p-1 flex flex-col">
               <div
                 onClick={() => (dateModel.current.style.visibility = "visible")}
                 className="p-2 flex items-center font-normal bg-gray-300 hover:bg-gray-200 rounded cursor-pointer"

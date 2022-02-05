@@ -18,10 +18,10 @@ const Home = () => {
   useEffect(() => {
     if (Object.keys(user).length > 0) {
       var arr = [];
-      user.workspace.map((workspace, id) => {
-        workspace.boards.map((board, id) => {
-          board.listOfCards.map((list, id) => {
-            list.cardList.map((card, id) => {
+      user.workspace.forEach((workspace, id) => {
+        workspace.boards.forEach((board, id) => {
+          board.listOfCards.forEach((list, id) => {
+            list.cardList.forEach((card, id) => {
               if (card.endDate) {
                 var dueDate = card.endDate.split("-");
 
@@ -39,7 +39,6 @@ const Home = () => {
         });
       });
       setDueArray(arr);
-      console.log(arr);
     }
   }, []);
 

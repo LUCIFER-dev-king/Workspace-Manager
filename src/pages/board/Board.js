@@ -1,14 +1,10 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { useLocation } from "react-router-dom";
-import { NetworkStatus, useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import Header from "../../layout/Header";
 import "../../index.css";
 import { FaPlus, FaTimes } from "react-icons/fa";
-import {
-  getBoard,
-  createListOfCards,
-  createCardToListOfCards,
-} from "./helper/boardHelper";
+import { getBoard, createListOfCards } from "./helper/boardHelper";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import CardModal from "../../modals/CardModal";
 import { UserContext } from "../../context/UserContext/userContext";
@@ -27,7 +23,7 @@ const Board = () => {
     dispatch,
   } = useContext(UserContext);
 
-  const { data, loading, refetch } = useQuery(getBoard, {
+  const { data, loading } = useQuery(getBoard, {
     variables: {
       getBoardGetBoardInput: {
         workspaceId: location.state.workspace._id,
@@ -38,11 +34,9 @@ const Board = () => {
   });
 
   const [addListOfCardFunc] = useMutation(createListOfCards);
-  const [addCardToListOfCardFunc] = useMutation(createCardToListOfCards);
 
   useEffect(() => {
     if (data) {
-      // console.log(data);
       dispatch({
         type: SET_USER_BOARD,
         payload: data.getBoard,
@@ -85,17 +79,25 @@ const Board = () => {
   };
 
   const handleDnD = (e) => {
-    const temp = location.state.board.listOfCards.find(
+    const sourceIndex = location.state.board.listOfCards.findIndex(
       (cardList) => cardList._id === e.source.droppableId
     );
-    const [reorderedItem] = temp.cardList.splice(e.source.index, 1);
-    temp.cardList.splice(e.destination.index, 0, reorderedItem);
-    // var bd = location.state.board.listOfCards[e.source.droppableId];
-    // bd.cardList = temp;
-    // setBoard(bd);
-    //TODO: Cant add to collection due to listOfcard subdocument4
-    console.log(location.state.board.listOfCards);
-    console.log(temp);
+
+    const destIndex = location.state.board.listOfCards.findIndex(
+      (cardList) => cardList._id === e.destination.droppableId
+    );
+
+    const sourceTemp = location.state.board.listOfCards[sourceIndex];
+    const destTemp = location.state.board.listOfCards[destIndex];
+
+    const [reorderedItem] = sourceTemp.cardList.splice(e.source.index, 1);
+    destTemp.cardList.splice(e.destination.index, 0, reorderedItem);
+
+    location.state.board.listOfCards[destIndex] = destTemp;
+    dispatch({
+      type: SET_USER_BOARD,
+      payload: location.state.board,
+    });
   };
 
   return loading ? (
@@ -130,19 +132,18 @@ const Board = () => {
               id="cardScrollBar"
               className="absolute top-0 right-0 bottom-0 left-0 overflow-x-auto overflow-y-hidden whitespace-nowrap"
             >
-              {Object.keys(boards).length !== 0 &&
-                boards.listOfCards.map((list) => (
-                  <div
-                    key={list._id}
-                    className="inline-block w-72 h-full whitespace-nowrap align-top pb-4"
-                  >
+              <DragDropContext onDragEnd={handleDnD}>
+                {Object.keys(boards).length !== 0 &&
+                  boards.listOfCards.map((list) => (
                     <div
-                      style={{ backgroundColor: "#ebecf0" }}
-                      className="flex flex-col max-h-full m-1 rounded p-2 px-4 pb-4  z-10"
+                      key={list._id}
+                      className="inline-block w-72 h-full whitespace-nowrap align-top pb-4"
                     >
-                      {/*TODO: Control list overflow list is overflow */}
-                      <h4>{list.listName}</h4>
-                      <DragDropContext onDragEnd={handleDnD}>
+                      <div
+                        style={{ backgroundColor: "#ebecf0" }}
+                        className="flex flex-col max-h-full m-1 rounded p-2 px-4 pb-4  z-10"
+                      >
+                        <h4>{list.listName}</h4>
                         <Droppable droppableId={list._id}>
                           {(provided) => (
                             <div
@@ -194,10 +195,11 @@ const Board = () => {
                             </div>
                           )}
                         </Droppable>
-                      </DragDropContext>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+              </DragDropContext>
+
               <div className="inline-block w-72 ">
                 <div ref={addListIdleRef} className="hidden flex-col">
                   <div className="mt-1 px-2 w-full">

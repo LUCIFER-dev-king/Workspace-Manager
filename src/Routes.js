@@ -1,4 +1,4 @@
-import reducer from "./context/UserContext/reducer";
+import { UserReducer } from "./context/UserContext/reducer";
 import React, { useReducer } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SignIn from "./auth/SignIn";
@@ -14,7 +14,7 @@ const Routes = () => {
     workspaces: {},
     boards: {},
   };
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(UserReducer, initialState);
 
   return (
     <UserContext.Provider value={{ state, dispatch }}>
