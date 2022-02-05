@@ -95,7 +95,7 @@ const Board = () => {
     // setBoard(bd);
     //TODO: Cant add to collection due to listOfcard subdocument4
     console.log(location.state.board.listOfCards);
-    console.log(e);
+    console.log(temp);
   };
 
   return loading ? (
