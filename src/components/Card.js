@@ -1,9 +1,12 @@
 import React from "react";
-import { MdDone } from "react-icons/md";
+import { MdClose, MdDone } from "react-icons/md";
+import { useHistory } from "react-router-dom";
 
 const Card = ({ card }) => {
+  const history = useHistory();
+
   return (
-    <div class="mt-2 rounded-b-sm bg-white shadow-md border h-44">
+    <div className="mt-2 rounded-b-sm bg-white shadow-md border h-44">
       <div
         style={{
           width: "100%",
@@ -20,10 +23,29 @@ const Card = ({ card }) => {
           <div>{card.endDate}</div>
         </div>
       </div>
-      <div className="mt-3 m-2 flex justify-center items-center cursor-pointer bg-white rounded border-2 border-gray-300 focus:border-transparent focus:ring-2 focus:outline-none p-2">
-        <MdDone />
-        <p className="ml-5">Completed</p>
-      </div>
+      {card.isCompleted ? (
+        <div className="mt-3 m-2 flex justify-center items-center cursor-pointer bg-white rounded border-2 border-gray-300 focus:border-transparent focus:ring-2 focus:outline-none p-2">
+          <MdDone />
+          <p className="ml-5">Completed</p>
+        </div>
+      ) : (
+        <div
+          onClick={() => {
+            history.push({
+              pathname: "/board",
+              state: {
+                boardId: card.boardId,
+                workspaceId: card.workspaceId,
+                workspaceName: card.workspaceName,
+              },
+            });
+          }}
+          className="mt-3 m-2 flex justify-center items-center cursor-pointer bg-white rounded border-2 border-gray-300 focus:border-transparent focus:ring-2 focus:outline-none p-2"
+        >
+          <MdClose />
+          <p className="ml-5">Not Completed</p>
+        </div>
+      )}
     </div>
   );
 };

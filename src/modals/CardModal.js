@@ -33,21 +33,33 @@ const CardModal = ({
   const [addCardToListOfCardFunc] = useMutation(createCardToListOfCards);
 
   const addCard = async () => {
+    console.log(
+      _id,
+      workspaceId,
+      boardId,
+      cardListId,
+      cardTitle,
+      cardDescrip,
+      cardStartDate,
+      cardCompleted,
+      cardDueDate
+    );
     const res = await addCardToListOfCardFunc({
       variables: {
         createCardInput: {
           workspaceId: workspaceId,
           boardId: boardId,
           cardListId: cardListId,
-          cardName: cardTitle,
-          cardDesc: cardDescrip,
-          startDate: cardStartDate,
-          isCompleted: cardCompleted,
-          endDate: cardDueDate,
-          cardId: _id,
+          cardName: cardTitle === "" ? " " : cardTitle,
+          cardDesc: cardDescrip === "" ? " " : cardDescrip,
+          startDate: cardStartDate === "" ? " " : cardStartDate,
+          isCompleted: cardCompleted === "" ? " " : cardCompleted,
+          endDate: cardDueDate === "" ? " " : cardDueDate,
+          cardId: _id === undefined ? " " : _id,
         },
       },
     });
+    console.log(res.data.createCard);
 
     if (res.data) {
       dispatch({
@@ -62,11 +74,11 @@ const CardModal = ({
 
   useEffect(() => {
     if (currentSelectedCard) {
-      setCardTitle(cardName);
-      setCardDesc(cardDesc);
-      setCardStartDate(startDate);
-      setCardDueDate(endDate);
-      setCardCompleted(isCompleted);
+      setCardTitle(cardName === null ? " " : cardName);
+      setCardDesc(cardDesc === null ? " " : cardDesc);
+      setCardStartDate(startDate === null ? " " : startDate);
+      setCardDueDate(endDate === null ? " " : endDate);
+      setCardCompleted(isCompleted === null ? false : isCompleted);
     }
   }, [currentSelectedCard]);
 

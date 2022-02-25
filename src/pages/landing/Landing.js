@@ -29,7 +29,7 @@ const Landing = () => {
         <div>
           <p className="font-semibold">YOUR WORKPACES </p>
 
-          {Object.keys(workspaces).length &&
+          {Object.keys(workspaces).length ? (
             workspaces.map((workspace) => (
               <div className="mt-5" key={workspace._id}>
                 <div className="font-medium">{workspace.workspaceName}</div>
@@ -54,7 +54,10 @@ const Landing = () => {
                   </div>
                 </div>
               </div>
-            ))}
+            ))
+          ) : (
+            <div class="mt-5">No workspace found</div>
+          )}
         </div>
       </div>
     </Base>

@@ -24,6 +24,8 @@ export const BoardModal = ({ boardModel, currentWorkspace }) => {
           workspaceId: currentWorkspace._id,
           boardName: boardName,
           imageUrl: backgroundImageUrls[Math.floor(Math.random() * 10)],
+          boardId: " ",
+          listOfCards: [],
         },
       },
     });

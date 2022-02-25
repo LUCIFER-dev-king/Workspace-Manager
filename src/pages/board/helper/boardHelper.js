@@ -4,8 +4,11 @@ export const getBoard = gql`
   query Query($getBoardGetBoardInput: GetBoardInput) {
     getBoard(getBoardInput: $getBoardGetBoardInput) {
       _id
+      boardName
+      imageUrl
       listOfCards {
         _id
+        listName
         cardList {
           _id
           cardName
@@ -50,6 +53,8 @@ export const createCardToListOfCards = gql`
   mutation Mutation($createCardInput: CreateCardInput) {
     createCard(createCardInput: $createCardInput) {
       _id
+      boardName
+      imageUrl
       listOfCards {
         _id
         cardList {

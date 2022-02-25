@@ -29,6 +29,22 @@ export const getUser = gql`
   }
 `;
 
+export const getDueDate = gql`
+  query Query {
+    getDueCard {
+      _id
+      cardName
+      cardDesc
+      startDate
+      endDate
+      isCompleted
+      workspaceId
+      workspaceName
+      boardId
+    }
+  }
+`;
+
 export const createWorkspace = gql`
   mutation CreateWorkSpaceMutation(
     $createWorkSpaceInput: CreateWorkSpaceInput

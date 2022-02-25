@@ -9,15 +9,14 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSignIn = async (e) => {
-    // e.preventDefault();
+  const handleSignIn = async (testemail, testpass) => {
     const {
       data: { signIn },
     } = await signInFunc({
       variables: {
         signInSignInInput: {
-          email: email,
-          password: password,
+          email: email === "" ? testemail : email,
+          password: password === "" ? testpass : password,
         },
       },
     });
@@ -67,6 +66,18 @@ const SignIn = () => {
           className="w-100 rounded text-white bg-green-500 p-2 font-semibold mt-3"
         >
           Sign In
+        </button>
+
+        <button
+          type="button"
+          onClick={() => {
+            setEmail("test@test.com");
+            setPassword("123456");
+            handleSignIn("test@test.com", "123456");
+          }}
+          className="w-100 rounded text-white bg-gray-400 p-2 font-semibold mt-3"
+        >
+          Guest Login
         </button>
         <div className="felx mt-2 text-gray-500 text-center font-normal">
           Don't have an account, <a href="/signup">Sign Up</a>

@@ -7,8 +7,9 @@ const Board = ({ board, workspace }) => {
     history.push({
       pathname: "/board",
       state: {
-        board: board,
-        workspace: workspace,
+        boardId: board._id,
+        workspaceId: workspace._id,
+        workspaceName: workspace.workspaceName,
       },
     });
   };

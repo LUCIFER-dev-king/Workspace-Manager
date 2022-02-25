@@ -9,12 +9,14 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import CardModal from "../../modals/CardModal";
 import { UserContext } from "../../context/UserContext/userContext";
 import { SET_USER_BOARD } from "../../context/UserContext/actions.types";
+import { createBoard } from "../home/helpers/homeHelper";
 
 const Board = () => {
   const location = useLocation();
   const [listName, setListName] = useState("");
   const [cardListId, setCardListId] = useState("");
   const [currentSelectedCard, setCurrentSelectedCard] = useState("");
+  const [currentBoard, setCurrentBoard] = useState();
   const cardModel = useRef();
   const addListIdleRef = useRef("");
   const addListInputRef = useRef("");
@@ -22,12 +24,13 @@ const Board = () => {
     state: { boards },
     dispatch,
   } = useContext(UserContext);
+  const [createBoardFun] = useMutation(createBoard);
 
   const { data, loading } = useQuery(getBoard, {
     variables: {
       getBoardGetBoardInput: {
-        workspaceId: location.state.workspace._id,
-        boardId: location.state.board._id,
+        workspaceId: location.state.workspaceId,
+        boardId: location.state.boardId,
       },
     },
     notifyOnNetworkStatusChange: true,
@@ -41,6 +44,7 @@ const Board = () => {
         type: SET_USER_BOARD,
         payload: data.getBoard,
       });
+      setCurrentBoard(data.getBoard);
     }
   }, [data]);
 
@@ -48,8 +52,8 @@ const Board = () => {
     const res = await addListOfCardFunc({
       variables: {
         createCardListInput: {
-          workspaceId: location.state.workspace._id,
-          boardId: location.state.board._id,
+          workspaceId: location.state.workspaceId,
+          boardId: boards._id,
           listName: listName,
         },
       },
@@ -78,26 +82,70 @@ const Board = () => {
     }
   };
 
+  const addBoard = async (currentBoard) => {
+    console.log(currentBoard.listOfCards);
+    try {
+      const res = await createBoardFun({
+        variables: {
+          createBoardCreateBoardInput: {
+            workspaceId: location.state.workspaceId,
+            boardName: currentBoard.boardName,
+            imageUrl: currentBoard.imageUrl,
+            boardId: currentBoard._id,
+            listOfCards: currentBoard.listOfCards,
+          },
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
+    // console.log(res);
+  };
+
   const handleDnD = (e) => {
-    const sourceIndex = location.state.board.listOfCards.findIndex(
-      (cardList) => cardList._id === e.source.droppableId
-    );
+    try {
+      //Since boards arrays are local var are created.
+      var tempListOfCards = [...boards.listOfCards];
 
-    const destIndex = location.state.board.listOfCards.findIndex(
-      (cardList) => cardList._id === e.destination.droppableId
-    );
+      //sourceIndex and destIndex gives the index of source and destination of listOfCards
+      const sourceIndex = tempListOfCards.findIndex(
+        (cardList) => cardList._id === e.source.droppableId
+      );
+      const destIndex = tempListOfCards.findIndex(
+        (cardList) => cardList._id === e.destination.droppableId
+      );
 
-    const sourceTemp = location.state.board.listOfCards[sourceIndex];
-    const destTemp = location.state.board.listOfCards[destIndex];
+      //sourceTemp and destTemp gives array of source and destination of listOfCards
+      let sourceTemp = tempListOfCards[sourceIndex];
+      let destTemp = tempListOfCards[destIndex];
 
-    const [reorderedItem] = sourceTemp.cardList.splice(e.source.index, 1);
-    destTemp.cardList.splice(e.destination.index, 0, reorderedItem);
+      //Copy array to mutate source and dest cards.
+      let sourceCardsTemp = [...sourceTemp.cardList];
+      let destCardsTemp = [...destTemp.cardList];
 
-    location.state.board.listOfCards[destIndex] = destTemp;
-    dispatch({
-      type: SET_USER_BOARD,
-      payload: location.state.board,
-    });
+      //reorderedItem is the dragged item from sourceCardsTemp
+      //and it is added to destCardsTemp by splicing.
+      const [reorderedItem] = sourceCardsTemp.splice(e.source.index, 1);
+      destCardsTemp.splice(e.destination.index, 0, reorderedItem);
+
+      tempListOfCards[sourceIndex] = {
+        ...sourceTemp,
+        cardList: sourceCardsTemp,
+      };
+      tempListOfCards[destIndex] = {
+        ...destTemp,
+        cardList: destCardsTemp,
+      };
+
+      addBoard({ ...boards, listOfCards: tempListOfCards });
+      dispatch({
+        type: SET_USER_BOARD,
+        payload: { ...boards, listOfCards: tempListOfCards },
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return loading ? (
@@ -106,7 +154,7 @@ const Board = () => {
     <div
       className="h-screen"
       style={{
-        background: `url(${location.state.board.imageUrl})`,
+        background: `url(${boards.imageUrl})`,
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
         backgroundSize: "cover",
@@ -114,8 +162,8 @@ const Board = () => {
     >
       <CardModal
         cardModel={cardModel}
-        workspaceId={location.state.workspace._id}
-        boardId={location.state.board._id}
+        workspaceId={location.state.workspaceId}
+        boardId={boards._id}
         cardListId={cardListId}
         currentSelectedCard={currentSelectedCard}
       />
@@ -124,8 +172,8 @@ const Board = () => {
       </div>
       <div style={{ height: "90%" }}>
         <div className="flex flex-col px-2  m-1 h-full">
-          <div className="my-2 ml-1 font-bold text-xl">
-            {location.state.workspace.workspaceName}'s Workspace
+          <div className="my-2 ml-1 font-bold text-xl text-white">
+            {location.state.workspaceName}'s Workspace
           </div>
           <div className="h-full relative grow">
             <div
@@ -221,7 +269,7 @@ const Board = () => {
                     </div>
                     <FaTimes
                       onClick={() => addListController(true)}
-                      className="mx-1 ml-2 text-xs cursor-pointer "
+                      className="mx-1 ml-2 text-xs cursor-pointer text-white"
                     ></FaTimes>
                   </div>
                 </div>

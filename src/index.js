@@ -43,7 +43,9 @@ const client = new ApolloClient({
   // link: authorizationLink.concat(httpLink),
   link: concat(authMiddleware, httpLink),
   // uri: process.env.REACT_APP_BACKEND,
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    addTypename: false,
+  }),
 });
 
 ReactDOM.render(
