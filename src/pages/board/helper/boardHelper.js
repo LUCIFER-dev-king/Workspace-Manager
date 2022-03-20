@@ -57,6 +57,7 @@ export const createCardToListOfCards = gql`
       imageUrl
       listOfCards {
         _id
+        listName
         cardList {
           _id
           cardName

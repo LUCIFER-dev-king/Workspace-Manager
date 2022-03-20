@@ -7,9 +7,9 @@ const Header = ({ bgHomeChange }) => {
       style={bgHomeChange ? { backgroundColor: "#026AA7" } : {}}
     >
       <div className="flex items-center justify-center h-auto">
-        <div className="text-white text-xl p-2 font-semibold">
+        <a href="/" className="text-white text-xl p-2 font-semibold">
           Workspace Manager
-        </div>
+        </a>
       </div>
     </div>
   );

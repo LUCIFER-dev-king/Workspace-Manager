@@ -5,6 +5,7 @@ import Base from "../../layout/Base";
 import Card from "../../components/Card";
 import { getDueDate } from "./helpers/homeHelper";
 import { useQuery } from "@apollo/client";
+import Loading from "../../components/Loading";
 
 const Home = () => {
   const [dueArray, setDueArray] = useState([]);
@@ -24,19 +25,21 @@ const Home = () => {
     }
   }, [data]);
 
-  if (loading) {
-    return <div>loading</div>;
-  }
-
   return (
     <Base>
-      <div className="md:p-0 col-span-12 md:col-span-6 h-screen overflow-y-hidden">
-        {dueArray.length > 0 ? (
-          dueArray.map((due, id) => <Card key={id} card={due} />)
-        ) : (
-          <div>No dues found</div>
-        )}
-      </div>
+      {loading ? (
+        <div className="col-span-12 md:col-span-8 flex justify-center items-center">
+          <Loading />
+        </div>
+      ) : (
+        <div className="md:p-0 col-span-12 md:col-span-6 h-screen overflow-y-hidden">
+          {dueArray.length > 0 ? (
+            dueArray.map((due, id) => <Card key={id} card={due} />)
+          ) : (
+            <div>No dues found</div>
+          )}
+        </div>
+      )}
     </Base>
   );
 };

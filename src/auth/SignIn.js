@@ -23,7 +23,7 @@ const SignIn = () => {
     if (signIn) {
       localStorage.setItem("jwt", JSON.stringify(signIn));
 
-      history.push("/");
+      window.location.pathname = "/";
     }
   };
   const [signInFunc] = useMutation(signInHelper);
@@ -31,7 +31,7 @@ const SignIn = () => {
   return (
     <div className="h-full w-full flex flex-col justify-center items-center mt-20">
       <div className="text-center">
-        <h1 className="font-bold text-4xl">Workspace Manager</h1>
+        <h1 className="font-bold text-5xl">Workspace Manager</h1>
       </div>
 
       <div

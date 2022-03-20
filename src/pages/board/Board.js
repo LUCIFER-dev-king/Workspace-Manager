@@ -10,6 +10,7 @@ import CardModal from "../../modals/CardModal";
 import { UserContext } from "../../context/UserContext/userContext";
 import { SET_USER_BOARD } from "../../context/UserContext/actions.types";
 import { createBoard } from "../home/helpers/homeHelper";
+import Loading from "../../components/Loading";
 
 const Board = () => {
   const location = useLocation();
@@ -69,7 +70,11 @@ const Board = () => {
   };
 
   if (loading) {
-    return <div>loading</div>;
+    return (
+      <div className="h-screen w-screen flex justify-center items-center">
+        <Loading />
+      </div>
+    );
   }
 
   const addListController = (value) => {
@@ -116,33 +121,35 @@ const Board = () => {
         (cardList) => cardList._id === e.destination.droppableId
       );
 
-      //sourceTemp and destTemp gives array of source and destination of listOfCards
-      let sourceTemp = tempListOfCards[sourceIndex];
-      let destTemp = tempListOfCards[destIndex];
+      if (sourceIndex !== destIndex) {
+        //sourceTemp and destTemp gives array of source and destination of listOfCards
 
-      //Copy array to mutate source and dest cards.
-      let sourceCardsTemp = [...sourceTemp.cardList];
-      let destCardsTemp = [...destTemp.cardList];
+        let sourceTemp = tempListOfCards[sourceIndex];
+        let destTemp = tempListOfCards[destIndex];
 
-      //reorderedItem is the dragged item from sourceCardsTemp
-      //and it is added to destCardsTemp by splicing.
-      const [reorderedItem] = sourceCardsTemp.splice(e.source.index, 1);
-      destCardsTemp.splice(e.destination.index, 0, reorderedItem);
+        //Copy array to mutate source and dest cards.
+        let sourceCardsTemp = [...sourceTemp.cardList];
+        let destCardsTemp = [...destTemp.cardList];
 
-      tempListOfCards[sourceIndex] = {
-        ...sourceTemp,
-        cardList: sourceCardsTemp,
-      };
-      tempListOfCards[destIndex] = {
-        ...destTemp,
-        cardList: destCardsTemp,
-      };
+        //reorderedItem is the dragged item from sourceCardsTemp
+        //and it is added to destCardsTemp by splicing.
+        const [reorderedItem] = sourceCardsTemp.splice(e.source.index, 1);
+        destCardsTemp.splice(e.destination.index, 0, reorderedItem);
 
-      addBoard({ ...boards, listOfCards: tempListOfCards });
-      dispatch({
-        type: SET_USER_BOARD,
-        payload: { ...boards, listOfCards: tempListOfCards },
-      });
+        tempListOfCards[sourceIndex] = {
+          ...sourceTemp,
+          cardList: sourceCardsTemp,
+        };
+        tempListOfCards[destIndex] = {
+          ...destTemp,
+          cardList: destCardsTemp,
+        };
+        addBoard({ ...boards, listOfCards: tempListOfCards });
+        dispatch({
+          type: SET_USER_BOARD,
+          payload: { ...boards, listOfCards: tempListOfCards },
+        });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -154,7 +161,7 @@ const Board = () => {
     <div
       className="h-screen"
       style={{
-        background: `url(${boards.imageUrl})`,
+        backgroundImage: `url(${boards.imageUrl})`,
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
         backgroundSize: "cover",
@@ -215,10 +222,11 @@ const Board = () => {
                                     >
                                       <div
                                         onClick={() => {
-                                          cardModel.current.style.visibility =
-                                            "visible";
                                           setCurrentSelectedCard(cardList);
                                           setCardListId(list._id);
+
+                                          cardModel.current.style.visibility =
+                                            "visible";
                                         }}
                                       >
                                         {cardList.cardName}
@@ -230,10 +238,11 @@ const Board = () => {
                               {provided.placeholder}
                               <div
                                 onClick={() => {
-                                  cardModel.current.style.visibility =
-                                    "visible";
                                   // addCardToListOfCards(list._id);
                                   setCardListId(list._id);
+
+                                  cardModel.current.style.visibility =
+                                    "visible";
                                 }}
                                 className="flex mt-2 justify-start text-gray-500 hover:bg-gray-300 rounded cursor-pointer items-center"
                               >
@@ -279,7 +288,7 @@ const Board = () => {
                   className="flex h-10 m-1 py-3 pr-3 pl-1 justify-start text-gray-300 bg-black bg-opacity-20 hover:bg-opacity-30 rounded cursor-pointer items-center"
                 >
                   <FaPlus className="m-1 ml-2 text-xs "></FaPlus>
-                  <div className="m-1">Add card</div>
+                  <div className="m-1">Add a list</div>
                 </div>
               </div>
             </div>

@@ -96,7 +96,11 @@ const CardModal = ({
             <div className="flex my-1 items-center justify-center">
               <h4 className="ml-auto ">Dates</h4>
               <MdClose
-                onClick={() => (dateModel.current.style.visibility = "hidden")}
+                onClick={() => {
+                  setCardStartDate("");
+                  setCardDueDate("");
+                  dateModel.current.style.visibility = "hidden";
+                }}
                 className="ml-auto cursor-pointer"
               />
             </div>
@@ -128,7 +132,11 @@ const CardModal = ({
         <div className="flex flex-col w-full ">
           <div className="flex justify-end">
             <MdClose
-              onClick={() => (cardModel.current.style.visibility = "hidden")}
+              onClick={() => {
+                setCardTitle("");
+                setCardDesc("");
+                cardModel.current.style.visibility = "hidden";
+              }}
               className="cursor-pointer"
             />
           </div>
@@ -150,7 +158,7 @@ const CardModal = ({
                       className="mt-1 rounded w-full border-2 border-gray-200 p-1 focus:border-transparent focus:ring-2 focus:outline-none"
                     />
                   </div>
-                  {cardDueDate && (
+                  {cardDueDate !== " " && (
                     <div className="px-2 mt-1">
                       <h4>Due Date</h4>
                       <div className=" flex items-center">
@@ -160,7 +168,12 @@ const CardModal = ({
                           onChange={(e) => setCardCompleted(e.target.checked)}
                           className="mr-2"
                         />
-                        {cardDueDate}
+
+                        {cardCompleted ? (
+                          <p className="line-through">{cardDueDate}</p>
+                        ) : (
+                          cardDueDate
+                        )}
                       </div>
                     </div>
                   )}
@@ -187,7 +200,7 @@ const CardModal = ({
                 </div>
               </div>
 
-              <div className="flex flex-col mt-2 w-full">
+              {/*<div className="flex flex-col mt-2 w-full">
                 <div className="flex items-start">
                   <div className="pt-3">
                     <FaRegCheckSquare />
@@ -202,7 +215,7 @@ const CardModal = ({
                     <h4 className=" ml-1 font-normal px-1">Checklist Name</h4>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="md:w-3/12 p-1 flex flex-col">
               <div
@@ -212,6 +225,7 @@ const CardModal = ({
                 <FaRegClock />
                 <h4 className="ml-2"> Dates</h4>
               </div>
+              {/*
               <div
                 onClick={addCard}
                 className="p-2 mt-2 flex items-center font-normal bg-gray-300 hover:bg-gray-200 rounded cursor-pointer"
@@ -222,7 +236,7 @@ const CardModal = ({
               <div className="p-2 mt-2  flex items-center font-normal bg-gray-300 hover:bg-gray-200 rounded cursor-pointer">
                 <MdAttachFile />
                 <h4 className="ml-2"> Members</h4>
-              </div>
+                  </div>*/}
               <div
                 onClick={addCard}
                 className="p-2 mt-2 bg-green-500 hover:bg-opacity-90 text-white flex justify-center items-center font-normal  rounded cursor-pointer"

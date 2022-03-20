@@ -42,7 +42,7 @@ const Base = ({ children }) => {
   }, [loading]);
 
   return (
-    <div className="relative z-0 h- container-xl mx-auto overflow-x-hidden">
+    <div className="relative z-0 container-xl mx-auto overflow-x-hidden">
       <Header bgHomeChange={true} />
 
       <WorkspaceModal workspaceModel={workspaceModel} />

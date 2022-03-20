@@ -25,7 +25,7 @@ const Landing = () => {
   return (
     <Base>
       <BoardModal boardModel={boardModel} currentWorkspace={workspace} />
-      <div className="p-2 md:p-0 col-span-12 md:col-span-9 h-screen overflow-y-hidden">
+      <div className="p-2 px-4 md:px-2 md:p-0 col-span-12 md:col-span-9 h-screen overflow-y-hidden">
         <div>
           <p className="font-semibold">YOUR WORKPACES </p>
 
@@ -56,7 +56,7 @@ const Landing = () => {
               </div>
             ))
           ) : (
-            <div class="mt-5">No workspace found</div>
+            <div className="mt-5">No workspace found</div>
           )}
         </div>
       </div>
