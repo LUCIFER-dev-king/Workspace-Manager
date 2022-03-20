@@ -96,11 +96,7 @@ const CardModal = ({
             <div className="flex my-1 items-center justify-center">
               <h4 className="ml-auto ">Dates</h4>
               <MdClose
-                onClick={() => {
-                  setCardStartDate("");
-                  setCardDueDate("");
-                  dateModel.current.style.visibility = "hidden";
-                }}
+                onClick={() => (dateModel.current.style.visibility = "hidden")}
                 className="ml-auto cursor-pointer"
               />
             </div>
